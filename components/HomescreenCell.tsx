@@ -1,23 +1,21 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import { Cell } from 'react-native-tableview-simple';
+import { HomeScreenCellProps } from '../types'; // Import the HomeScreenCellProps interface from types.ts
+import { SafeAreaView } from 'react-native-safe-area-context';
 
-// interface HomeScreenCellProps {
-//     title: string;
-//     tagline: string;
-//     eta: string;
-//     imgUri: ImageSourcePropType;
-//     highlightColor?: string; // Optional highlight color prop
-// }
-const HomescreenCell = ({ ...props }) => {
+const HomescreenCell: React.FC<HomeScreenCellProps> = ({ ...props }) => {
     return (
-        <TouchableOpacity onPress={props.action}>
-            <Cell
-                key={props.index}
-                style={{ backgroundColor: 'transparent', height: props.height }}
-                contentContainerStyle={styles.cellContentView}
-                highlightUnderlayColor="#ccc"
-            >
+        <Cell
+            key={props.key}
+            contentContainerStyle={{ flex: 1 }} // Ensure content stretches to fill the cell
+            backgroundColor={'transparent'}
+            highlightUnderlayColor="#ccc"
+            hideSeparator={true}
+            withSafeAreaView={true}
+            onPress={props.action} // If interaction is needed, you can still add onPress here
+        >
+            <View style={{ height: props.height, paddingHorizontal:10 }}>
                 <Image source={props.imgUri} style={styles.image} />
                 <View style={styles.etaContainer}>
                     <Text style={styles.eta}>{props.eta} mins</Text>
@@ -26,34 +24,44 @@ const HomescreenCell = ({ ...props }) => {
                     <Text style={styles.title}>{props.title}</Text>
                     <Text style={styles.tagline}>{props.tagline}</Text>
                 </View>
-            </Cell>
-        </TouchableOpacity>
+            </View>
+        </Cell>
     );
 };
 
 const styles = StyleSheet.create({
     cellContentView: {
         flex: 1,
-        flexDirection: 'column',
     },
     imageContainer: {
         position: 'relative',
     },
     image: {
         width: '100%',
-        height: 150,
+        alignSelf: 'flex-start',
+        height: 230,
         borderRadius: 10,
     },
     etaContainer: {
         position: 'absolute',
-        bottom: 30,
-        right: 10,
+        bottom: '12%',
+        right: '10%',
         backgroundColor: '#fff', // Set the highlight color
         borderRadius: 30,
         paddingHorizontal: 10,
         paddingVertical: 5,
         width: 80,
+        borderWidth: 1,          // Set the border width
+        borderColor: '#d3d3d3',  // Set the border color to light grey
 
+        // Shadow properties for iOS
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+
+        // Shadow properties for Android
+        elevation: 5,
     },
     eta: {
         fontSize: 16,
