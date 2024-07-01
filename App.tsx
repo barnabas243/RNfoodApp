@@ -1,5 +1,4 @@
 import React from "react";
-import { StyleSheet } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { RootStackParamList } from "./types"; // Import HomeScreenNavigationProp
@@ -48,36 +47,5 @@ const App: React.FC = () => {
     </CartProvider>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#f8f8f8",
-  },
-  itemContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    paddingVertical: 10,
-    paddingHorizontal: 15, // Adjust horizontal padding as needed
-    borderBottomWidth: 1,
-    borderBottomColor: "#ccc",
-  },
-  itemContent: {
-    flex: 1,
-  },
-  itemText: {
-    fontSize: 16,
-    fontWeight: "bold",
-  },
-  addButton: {
-    padding: 10,
-  },
-  sectionHeader: {
-    fontSize: 18,
-    fontWeight: "bold",
-    marginBottom: 10,
-  },
-});
 
 export default App;
