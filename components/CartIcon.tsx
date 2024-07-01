@@ -3,12 +3,12 @@ import { TouchableOpacity, View, Text, StyleSheet } from "react-native";
 import { Feather } from "@expo/vector-icons";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { RootStackParamList } from "../types";
-import { useCart } from "../contexts/CartContext";
+import { useCart } from "../contexts/CartProvider";
 
 const CartIcon: React.FC = () => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
-  const { cartItemCount } = useCart(); // Access cartItems array from CartContext
+  const { cartItemCount } = useCart(); // Access cartItemsCount number from CartContext
 
   const handleCartPress = () => {
     navigation.navigate("Cart");

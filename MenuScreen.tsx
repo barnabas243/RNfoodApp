@@ -7,12 +7,8 @@ import {
   StyleSheet,
 } from "react-native";
 import { Feather } from "@expo/vector-icons"; // Assuming Feather icons are imported
-import { useCart } from "./contexts/CartContext"; // Import your CartContext
-import { MenuItem, MenuScreenRouteProp } from "./types";
-
-interface MenuScreenProps {
-  route: MenuScreenRouteProp;
-}
+import { useCart } from "./contexts/CartProvider"; // Import your CartContext
+import { MenuItem, MenuScreenProps } from "./types";
 
 const MenuScreen: React.FC<MenuScreenProps> = ({ route }) => {
   const { menu, restaurantId } = route.params; // Get menu information from route params

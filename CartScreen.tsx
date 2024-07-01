@@ -7,13 +7,9 @@ import {
   StyleSheet,
   Alert,
 } from "react-native";
-import { Feather } from "@expo/vector-icons"; // Assuming Feather icons are imported
-import { useCart } from "./contexts/CartContext"; // Import your CartContext
-import { MenuItem } from "./types";
-
-interface CartItem extends MenuItem {
-  restaurantId: number;
-}
+import { Feather } from "@expo/vector-icons";
+import { useCart } from "./contexts/CartProvider";
+import { CartItem } from "./types";
 
 const CartScreen: React.FC = () => {
   const {

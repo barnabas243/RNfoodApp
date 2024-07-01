@@ -1,8 +1,7 @@
 import React from "react";
-import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Text, Image, StyleSheet} from "react-native";
 import { Cell } from "react-native-tableview-simple";
 import { HomeScreenCellProps } from "../types"; // Import the HomeScreenCellProps interface from types.ts
-import { SafeAreaView } from "react-native-safe-area-context";
 
 const HomescreenCell: React.FC<HomeScreenCellProps> = ({ ...props }) => {
   return (

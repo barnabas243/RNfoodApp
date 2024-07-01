@@ -24,15 +24,28 @@ export interface MenuSection {
 export interface Menu {
   sections: MenuSection[];
 }
+export interface CartItem extends MenuItem {
+  restaurantId: number;
+}
 
+export interface CartContextType {
+  cartItems: CartItem[];
+  addToCart: (item: CartItem) => void;
+  removeFromCart: (id: number) => void;
+  clearCart: () => void;
+  clearCartAndAddItem: (item: CartItem) => void;
+  incrementItemQuantity: (id: number) => void;
+  decrementItemQuantity: (id: number) => void;
+  cartItemCount: number;
+}
 export interface HomeScreenCellProps {
   key: number;
   title: string;
   tagline: string;
   eta: string;
   imgUri: ImageSourcePropType;
-  action: () => void; // Assuming action is a function
-  height: number; // Assuming height is a number
+  action: () => void;
+  height: number;
 }
 
 export type RootStackParamList = {
@@ -45,5 +58,12 @@ export type HomeScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
   "Restaurants"
 >;
+export interface HomeScreenProps {
+  navigation: HomeScreenNavigationProp;
+}
+
 export type MenuScreenRouteProp = RouteProp<RootStackParamList, "Menu">;
+export interface MenuScreenProps {
+  route: MenuScreenRouteProp;
+}
 export type CartScreenRouteProp = RouteProp<RootStackParamList, "Cart">;

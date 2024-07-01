@@ -2,27 +2,7 @@
 
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { Alert } from "react-native";
-
-// Define types for cart item and context
-interface CartItem {
-  id: number;
-  name: string;
-  price: number;
-  restaurantId: number; // Assuming each menu item has a restaurantId
-  quantity: number;
-}
-
-// Define types for CartContext
-interface CartContextType {
-  cartItems: CartItem[];
-  addToCart: (item: CartItem) => void;
-  removeFromCart: (id: number) => void;
-  clearCart: () => void;
-  clearCartAndAddItem: (item: CartItem) => void;
-  incrementItemQuantity: (id: number) => void;
-  decrementItemQuantity: (id: number) => void;
-  cartItemCount: number; // Corrected type to number
-}
+import { CartContextType, CartItem } from "../types";
 
 // Create context with initial value
 const CartContext = createContext<CartContextType>({
@@ -39,11 +19,16 @@ const CartContext = createContext<CartContextType>({
 // Custom hook to use CartContext
 export const useCart = () => useContext(CartContext);
 
-export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
+  children,
+}) => {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
 
   // Calculate cartItemCount dynamically whenever cartItems change
-  const cartItemCount = cartItems.reduce((total, item) => total + item.quantity, 0);
+  const cartItemCount = cartItems.reduce(
+    (total, item) => total + item.quantity,
+    0
+  );
 
   const addToCart = (item: CartItem) => {
     const existingItem = cartItems.find((cartItem) => cartItem.id === item.id);

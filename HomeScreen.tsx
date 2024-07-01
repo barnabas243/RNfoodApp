@@ -1,12 +1,8 @@
 import { ScrollView } from "react-native";
-import { HomeScreenNavigationProp, Restaurant } from "./types";
+import { HomeScreenProps, Restaurant } from "./types";
 import { Section, TableView } from "react-native-tableview-simple";
 import { restaurantsData } from "./data/Restaurant";
 import HomescreenCell from "./components/HomescreenCell";
-
-interface HomeScreenProps {
-  navigation: HomeScreenNavigationProp;
-}
 
 const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
   return (

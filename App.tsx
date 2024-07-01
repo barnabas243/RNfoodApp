@@ -1,8 +1,8 @@
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import { RootStackParamList } from "./types"; // Import HomeScreenNavigationProp
-import { CartProvider } from "./contexts/CartContext";
+import { RootStackParamList } from "./types";
+import { CartProvider } from "./contexts/CartProvider";
 import CartIcon from "./components/CartIcon";
 import MenuScreen from "./MenuScreen";
 import CartScreen from "./CartScreen";
