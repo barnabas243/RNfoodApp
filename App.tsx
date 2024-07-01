@@ -1,92 +1,82 @@
-import React from 'react';
-import { ScrollView, View, StyleSheet } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator, StackNavigationProp  } from '@react-navigation/stack';
-import { RouteProp } from '@react-navigation/native';
-import { TableView, Section, Cell } from 'react-native-tableview-simple';
-import { Restaurant, RootStackParamList } from './types';
-import HomescreenCell from './components/HomescreenCell';
-import {restaurantsData} from './data/Restaurant';
+import React from "react";
+import { StyleSheet } from "react-native";
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
+import { RootStackParamList } from "./types"; // Import HomeScreenNavigationProp
+import { CartProvider } from "./contexts/CartContext";
+import CartIcon from "./components/CartIcon";
+import MenuScreen from "./MenuScreen";
+import CartScreen from "./CartScreen";
+import HomeScreen from "./HomeScreen";
 
 const Stack = createStackNavigator<RootStackParamList>();
-type HomeScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Restaurants'>;
-type MenuScreenRouteProp = RouteProp<RootStackParamList, 'Menu'>;
-
-interface HomeScreenProps {
-  navigation: HomeScreenNavigationProp;
-}
-
-interface MenuScreenProps {
-  route: MenuScreenRouteProp;
-}
-
-const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
-  return (
-    <ScrollView>
-      <TableView>
-        <Section header="" hideSeparator={true} separatorTintColor="#ccc" sectionPaddingTop={0} sectionPaddingBottom={0}>
-          {restaurantsData.map((restaurant: Restaurant, index: number) => (
-            <HomescreenCell
-              key={index}
-              title={restaurant.name}
-              tagline={restaurant.tagline}
-              eta={restaurant.eta}
-              imgUri={restaurant.imgUri}
-              height={290}
-              action={() => navigation.navigate('Menu', { menu: restaurant.menu })}/>
-          ))}
-        </Section>
-      </TableView>
-    </ScrollView>
-  );
-};
-
-const MenuScreen: React.FC<MenuScreenProps> = ({ route }) => {
-  const { menu } = route.params; // Get menu information from route params
-
-  return (
-    <View style={styles.container}>
-      <TableView>
-        {menu.items.map((item, index) => (
-          <Section key={index} header={item.title}>
-            {item.ingredients.map((ingredient, i) => (
-              <Cell key={i} title={ingredient} />
-            ))}
-          </Section>
-        ))}
-      </TableView>
-    </View>
-  );
-};
 
 const App: React.FC = () => {
   return (
-    <NavigationContainer>
+    <CartProvider>
+      <NavigationContainer>
         <Stack.Navigator initialRouteName="Restaurants">
           <Stack.Screen
             name="Restaurants"
             component={HomeScreen}
             options={{
-              headerTitleAlign: 'center'
-            }} />
+              headerTitleAlign: "center",
+              headerRight: () => <CartIcon />,
+            }}
+          />
           <Stack.Screen
             name="Menu"
             component={MenuScreen}
             options={{
               headerBackAccessibilityLabel: "Restaurant",
               headerBackTitleVisible: true,
-              headerBackTitle: 'Restaurant',
-              headerTitleAlign: 'center'
-            }} />
+              headerBackTitle: "Restaurant",
+              headerTitleAlign: "center",
+              headerRight: () => <CartIcon />,
+            }}
+          />
+          <Stack.Screen
+            name="Cart"
+            component={CartScreen}
+            options={{
+              headerTitleAlign: "center",
+              headerRight: () => <CartIcon />,
+            }}
+          />
         </Stack.Navigator>
-    </NavigationContainer>
+      </NavigationContainer>
+    </CartProvider>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f8f8f8',
+    backgroundColor: "#f8f8f8",
+  },
+  itemContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    paddingVertical: 10,
+    paddingHorizontal: 15, // Adjust horizontal padding as needed
+    borderBottomWidth: 1,
+    borderBottomColor: "#ccc",
+  },
+  itemContent: {
+    flex: 1,
+  },
+  itemText: {
+    fontSize: 16,
+    fontWeight: "bold",
+  },
+  addButton: {
+    padding: 10,
+  },
+  sectionHeader: {
+    fontSize: 18,
+    fontWeight: "bold",
+    marginBottom: 10,
   },
 });
 
