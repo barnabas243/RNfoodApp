@@ -194,7 +194,7 @@ const styles = StyleSheet.create({
     flex: 2,
   },
   itemName: {
-    fontSize: 16,
+    fontSize: 20,
   },
   itemStock: {
     fontSize: 14,
@@ -214,10 +214,11 @@ const styles = StyleSheet.create({
   itemTotalPrice: {
     fontSize: 16,
     flex: 1,
-     textAlign: "center",
+    textAlign: "center",
   },
   footerContainer: {
-    marginTop: 16,
+    paddingVertical: 8,
+    paddingHorizontal: 12,
   },
   totalText: {
     fontSize: 20,
