@@ -84,27 +84,7 @@ const CartScreen: React.FC = () => {
       </View>
     );
   };
-  // const QuickActions = (index, qaItem) => {
-  //   return (
-  //     <View style={styles.qaContainer}>
-  //       <View style={[styles.button, styles.button1]}>
-  //         <Pressable onPress={() => archiveItem(qaItem.id)}>
-  //           <Text style={[styles.buttonText, styles.button1Text]}>Archive</Text>
-  //         </Pressable>
-  //       </View>
-  //       <View style={[styles.button, styles.button2]}>
-  //         <Pressable onPress={() => snoozeItem(qaItem.id)}>
-  //           <Text style={[styles.buttonText, styles.button2Text]}>Snooze</Text>
-  //         </Pressable>
-  //       </View>
-  //       <View style={[styles.button, styles.button3]}>
-  //         <Pressable onPress={() => deleteItem(qaItem.id)}>
-  //           <Text style={[styles.buttonText, styles.button3Text]}>Delete</Text>
-  //         </Pressable>
-  //       </View>
-  //     </View>
-  //   );
-  // };
+
   const renderItem = ({ item }: { item: CartItem }) => (
     <View style={[styles.itemContainer, { backgroundColor: "#fff" }]}>
       <View style={styles.itemDetailsContainer}>
