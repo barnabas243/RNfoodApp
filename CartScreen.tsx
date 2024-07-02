@@ -11,6 +11,7 @@ import { Feather } from "@expo/vector-icons";
 import { useCart } from "./contexts/CartProvider";
 import { CartItem } from "./types";
 import { restaurantsData } from "./data/RestaurantData";
+import SwipeableFlatList from "react-native-swipeable-list";
 
 const CartScreen: React.FC = () => {
   const {
@@ -61,12 +62,59 @@ const CartScreen: React.FC = () => {
       restaurantTitle = restaurantsData[restaurantId].name;
     }
   }
+
+  const QuickActions = (index: number, qaItemId: number) => {
+    return (
+      <View style={styles.qaContainer}>
+        <View
+          style={{
+            width: 100,
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <TouchableOpacity
+            style={{ flexDirection: "row", alignItems: "center" }}
+            onPress={() => handleRemoveItem(qaItemId)}
+          >
+            <Feather name="trash" size={20} color="red" />
+            <Text style={{ color: "red", marginLeft: 5 }}>Delete</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+    );
+  };
+  // const QuickActions = (index, qaItem) => {
+  //   return (
+  //     <View style={styles.qaContainer}>
+  //       <View style={[styles.button, styles.button1]}>
+  //         <Pressable onPress={() => archiveItem(qaItem.id)}>
+  //           <Text style={[styles.buttonText, styles.button1Text]}>Archive</Text>
+  //         </Pressable>
+  //       </View>
+  //       <View style={[styles.button, styles.button2]}>
+  //         <Pressable onPress={() => snoozeItem(qaItem.id)}>
+  //           <Text style={[styles.buttonText, styles.button2Text]}>Snooze</Text>
+  //         </Pressable>
+  //       </View>
+  //       <View style={[styles.button, styles.button3]}>
+  //         <Pressable onPress={() => deleteItem(qaItem.id)}>
+  //           <Text style={[styles.buttonText, styles.button3Text]}>Delete</Text>
+  //         </Pressable>
+  //       </View>
+  //     </View>
+  //   );
+  // };
   const renderItem = ({ item }: { item: CartItem }) => (
-    <View style={styles.itemContainer}>
+    <View style={[styles.itemContainer, { backgroundColor: "#fff" }]}>
       <View style={styles.itemDetailsContainer}>
         <Text style={styles.itemName}>{item.name}</Text>
+        <Text style={styles.itemPrice}>${item.price.toFixed(2)}</Text>
         <Text style={styles.itemStock}>Stock: {item.stock - 1}</Text>
       </View>
+      <Text style={styles.itemTotalPrice}>
+        ${(item.price * item.quantity).toFixed(2)}
+      </Text>
       <View style={styles.quantityContainer}>
         <TouchableOpacity onPress={() => handleDecrementItem(item.id)}>
           <Feather name="minus" size={20} color="black" />
@@ -76,19 +124,19 @@ const CartScreen: React.FC = () => {
           <Feather name="plus" size={20} color="black" />
         </TouchableOpacity>
       </View>
-      <Text style={styles.itemPrice}>${item.price.toFixed(2)}</Text>
-      <TouchableOpacity onPress={() => handleRemoveItem(item.id)}>
-        <Feather name="trash" size={20} color="red" />
-      </TouchableOpacity>
     </View>
   );
-  
+
   return (
     <View style={styles.container}>
-      <FlatList
+      <SwipeableFlatList
         data={cartItems}
         keyExtractor={(item) => item.id.toString()}
         renderItem={renderItem}
+        maxSwipeDistance={100}
+        renderQuickActions={({ index, item }) => QuickActions(index, item.id)}
+        contentContainerStyle={styles.contentContainerStyle}
+        shouldBounceOnMount={true}
         ListHeaderComponent={() => (
           <View style={styles.headerContainer}>
             <Text style={styles.headerText}>{restaurantTitle}</Text>
@@ -115,14 +163,14 @@ const CartScreen: React.FC = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingHorizontal: 16,
-    paddingTop: 16,
   },
   headerContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
     marginBottom: 16,
+    paddingVertical: 8,
+    paddingHorizontal: 12,
   },
   headerText: {
     fontSize: 24,
@@ -136,9 +184,11 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    paddingVertical: 12,
+    paddingHorizontal: 12,
+    paddingVertical: 8,
     borderBottomWidth: 1,
     borderBottomColor: "#ccc",
+    color: "black",
   },
   itemDetailsContainer: {
     flex: 2,
@@ -160,8 +210,11 @@ const styles = StyleSheet.create({
   },
   itemPrice: {
     fontSize: 16,
+  },
+  itemTotalPrice: {
+    fontSize: 16,
     flex: 1,
-    textAlign: "right",
+     textAlign: "center",
   },
   footerContainer: {
     marginTop: 16,
@@ -170,6 +223,21 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "bold",
     textAlign: "right",
+  },
+  qaContainer: {
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "flex-end",
+    borderWidth: 1,
+    borderColor: "#ffbcbc",
+    backgroundColor: "#ffcccc",
+  },
+  button: {
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  contentContainerStyle: {
+    flexGrow: 1,
   },
 });
 
