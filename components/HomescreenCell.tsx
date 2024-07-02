@@ -1,27 +1,28 @@
 import React from "react";
-import { View, Text, Image, StyleSheet} from "react-native";
+import { View, Text, Image, StyleSheet } from "react-native";
 import { Cell } from "react-native-tableview-simple";
-import { HomeScreenCellProps } from "../types"; // Import the HomeScreenCellProps interface from types.ts
+import { HomeScreenCellProps } from "../types";
 
 const HomescreenCell: React.FC<HomeScreenCellProps> = ({ ...props }) => {
+  const { key, imgUri, eta, title, tagline, height, onPress } = props;
   return (
     <Cell
-      key={props.key}
-      contentContainerStyle={{ flex: 1 }} // Ensure content stretches to fill the cell
+      key={key}
+      contentContainerStyle={styles.contentContainer}
       backgroundColor={"transparent"}
       highlightUnderlayColor="#ccc"
       hideSeparator={true}
       withSafeAreaView={true}
-      onPress={props.action} // If interaction is needed, you can still add onPress here
+      onPress={onPress}
     >
-      <View style={{ height: props.height, paddingHorizontal: 10 }}>
-        <Image source={props.imgUri} style={styles.image} />
+      <View style={{ height: height, paddingHorizontal: 10 }}>
+        <Image source={imgUri} style={styles.image} />
         <View style={styles.etaContainer}>
-          <Text style={styles.eta}>{props.eta} mins</Text>
+          <Text style={styles.eta}>{eta} mins</Text>
         </View>
         <View style={styles.textContainer}>
-          <Text style={styles.title}>{props.title}</Text>
-          <Text style={styles.tagline}>{props.tagline}</Text>
+          <Text style={styles.title}>{title}</Text>
+          <Text style={styles.tagline}>{tagline}</Text>
         </View>
       </View>
     </Cell>
@@ -29,7 +30,7 @@ const HomescreenCell: React.FC<HomeScreenCellProps> = ({ ...props }) => {
 };
 
 const styles = StyleSheet.create({
-  cellContentView: {
+  contentContainer: {
     flex: 1,
   },
   imageContainer: {
@@ -45,13 +46,13 @@ const styles = StyleSheet.create({
     position: "absolute",
     bottom: "12%",
     right: "10%",
-    backgroundColor: "#fff", // Set the highlight color
+    backgroundColor: "#fff",
     borderRadius: 30,
     paddingHorizontal: 10,
     paddingVertical: 5,
     width: 80,
-    borderWidth: 1, // Set the border width
-    borderColor: "#d3d3d3", // Set the border color to light grey
+    borderWidth: 1,
+    borderColor: "#d3d3d3",
 
     // Shadow properties for iOS
     shadowColor: "#000",
@@ -66,7 +67,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "bold",
     textAlign: "center",
-    flexWrap: "wrap", // Allow text wrapping
+    flexWrap: "wrap",
   },
   textContainer: {
     flex: 1,

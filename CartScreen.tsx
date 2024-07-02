@@ -10,6 +10,7 @@ import {
 import { Feather } from "@expo/vector-icons";
 import { useCart } from "./contexts/CartProvider";
 import { CartItem } from "./types";
+import { restaurantsData } from "./data/RestaurantData";
 
 const CartScreen: React.FC = () => {
   const {
@@ -50,10 +51,22 @@ const CartScreen: React.FC = () => {
       { cancelable: true }
     );
   };
+  let restaurantTitle = "Your Cart is Empty"; // Default title if cart is empty
 
+  if (cartItems && cartItems.length > 0) {
+    const restaurantId = cartItems[0].restaurantId;
+
+    // Assuming restaurantsData is an array or object where you can access by index or key
+    if (restaurantsData && restaurantsData[restaurantId]) {
+      restaurantTitle = restaurantsData[restaurantId].name;
+    }
+  }
   const renderItem = ({ item }: { item: CartItem }) => (
     <View style={styles.itemContainer}>
-      <Text style={styles.itemName}>{item.name}</Text>
+      <View style={styles.itemDetailsContainer}>
+        <Text style={styles.itemName}>{item.name}</Text>
+        <Text style={styles.itemStock}>Stock: {item.stock - 1}</Text>
+      </View>
       <View style={styles.quantityContainer}>
         <TouchableOpacity onPress={() => handleDecrementItem(item.id)}>
           <Feather name="minus" size={20} color="black" />
@@ -63,13 +76,13 @@ const CartScreen: React.FC = () => {
           <Feather name="plus" size={20} color="black" />
         </TouchableOpacity>
       </View>
-      <Text style={styles.itemPrice}>£{item.price.toFixed(2)}</Text>
+      <Text style={styles.itemPrice}>${item.price.toFixed(2)}</Text>
       <TouchableOpacity onPress={() => handleRemoveItem(item.id)}>
         <Feather name="trash" size={20} color="red" />
       </TouchableOpacity>
     </View>
   );
-
+  
   return (
     <View style={styles.container}>
       <FlatList
@@ -78,7 +91,7 @@ const CartScreen: React.FC = () => {
         renderItem={renderItem}
         ListHeaderComponent={() => (
           <View style={styles.headerContainer}>
-            <Text style={styles.headerText}>Your Cart</Text>
+            <Text style={styles.headerText}>{restaurantTitle}</Text>
             <TouchableOpacity onPress={handleClearCart}>
               <Text style={styles.clearCartText}>Clear Cart</Text>
             </TouchableOpacity>
@@ -87,7 +100,7 @@ const CartScreen: React.FC = () => {
         ListFooterComponent={() => (
           <View style={styles.footerContainer}>
             <Text style={styles.totalText}>
-              Total: £
+              Total: $
               {cartItems
                 .reduce((sum, item) => sum + item.price * item.quantity, 0)
                 .toFixed(2)}
@@ -127,9 +140,15 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: "#ccc",
   },
+  itemDetailsContainer: {
+    flex: 2,
+  },
   itemName: {
     fontSize: 16,
-    flex: 2,
+  },
+  itemStock: {
+    fontSize: 14,
+    color: "#888",
   },
   quantityContainer: {
     flexDirection: "row",

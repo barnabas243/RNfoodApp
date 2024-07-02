@@ -6,8 +6,8 @@ import {
   TouchableOpacity,
   StyleSheet,
 } from "react-native";
-import { Feather } from "@expo/vector-icons"; // Assuming Feather icons are imported
-import { useCart } from "./contexts/CartProvider"; // Import your CartContext
+import { Feather } from "@expo/vector-icons";
+import { useCart } from "./contexts/CartProvider";
 import { MenuItem, MenuScreenProps } from "./types";
 
 const MenuScreen: React.FC<MenuScreenProps> = ({ route }) => {
@@ -38,30 +38,54 @@ const MenuScreen: React.FC<MenuScreenProps> = ({ route }) => {
   const renderSectionFooter = () => <View style={styles.sectionFooter} />;
 
   const renderSectionItem = ({ item }: { item: MenuItem }) => {
-    const cartItem = cartItems.find((cartItem) => cartItem.id === item.id);
+    const cartItem = cartItems.find((ci) => ci.id === item.id);
     const quantity = cartItem ? cartItem.quantity : 0;
-
+    const stock = item.stock - quantity;
+    const isOutOfStock = stock === 0;
     return (
-      <View style={styles.itemContainer}>
+      <View
+        style={[
+          styles.itemContainer,
+          {
+            backgroundColor: isOutOfStock ? "#00000040" : "transparent",
+            borderColor: isOutOfStock ? "#00000080" : "#00000040",
+          },
+        ]}
+      >
         <View style={styles.itemContent}>
           <Text style={styles.itemText}>{item.name}</Text>
-          <Text style={styles.itemPrice}>£{item.price.toFixed(2)}</Text>
+          <Text style={styles.itemPrice}>${item.price.toFixed(2)}</Text>
+          <Text style={styles.itemStock}>Stock: {stock}</Text>
         </View>
-        <View style={styles.addButtonContainer}>
-          <TouchableOpacity
-            style={styles.actionButton}
-            onPress={() => removeMenuItemFromCart(item.id)}
-          >
-            <Feather name="minus" size={20} color="black" />
-          </TouchableOpacity>
-          <Text style={styles.itemQuantity}>{quantity}</Text>
-          <TouchableOpacity
-            style={styles.actionButton}
-            onPress={() => addMenuItemToCart(item)}
-          >
-            <Feather name="plus" size={20} color="black" />
-          </TouchableOpacity>
-        </View>
+
+        {isOutOfStock && (
+          <View>
+            <Text style={styles.outOfStockText}>Out of stock</Text>
+          </View>
+        )}
+        {!(isOutOfStock && quantity === 0) && (
+          <View style={styles.addButtonContainer}>
+            {quantity > 0 && (
+              <>
+                <TouchableOpacity
+                  style={styles.actionButton}
+                  onPress={() => removeMenuItemFromCart(item.id)}
+                  disabled={quantity <= 0}
+                >
+                  <Feather name="minus" size={20} color="black" />
+                </TouchableOpacity>
+                <Text style={styles.itemQuantity}>{quantity}</Text>
+              </>
+            )}
+            <TouchableOpacity
+              style={styles.actionButton}
+              onPress={() => addMenuItemToCart(item)}
+              disabled={isOutOfStock}
+            >
+              <Feather name="plus" size={20} color="black" />
+            </TouchableOpacity>
+          </View>
+        )}
       </View>
     );
   };
@@ -83,19 +107,19 @@ const MenuScreen: React.FC<MenuScreenProps> = ({ route }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  sectionHeader: {
+    backgroundColor: "transparent",
+    marginBottom: 4,
+  },
+  sectionHeaderText: {
+    fontSize: 18,
+    fontWeight: "bold",
     paddingHorizontal: 16,
     paddingTop: 16,
   },
-  sectionHeader: {
-    backgroundColor: "#f0f0f0",
-    marginBottom: 4, // Bottom margin for section headers
-  },
-  sectionHeaderText: {
-    fontSize: 18, // Bigger font size for section headers
-    fontWeight: "bold",
-  },
   sectionFooter: {
-    paddingBottom: 24, // Space between sections
+    paddingBottom: 24,
   },
   itemContainer: {
     flexDirection: "row",
@@ -104,6 +128,8 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     borderBottomWidth: 1,
     borderBottomColor: "#ccc",
+    paddingHorizontal: 16,
+    paddingTop: 16,
   },
   itemContent: {
     flex: 1,
@@ -127,7 +153,15 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   sectionListContent: {
-    paddingBottom: 16, // Bottom padding for the entire SectionList
+    paddingBottom: 16,
+  },
+  itemStock: {
+    fontSize: 12,
+    color: "#555",
+  },
+  outOfStockText: {
+    color: "red",
+    fontSize: 14,
   },
 });
 

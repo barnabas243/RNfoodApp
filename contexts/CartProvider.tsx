@@ -2,7 +2,7 @@
 
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { Alert } from "react-native";
-import { CartContextType, CartItem } from "../types";
+import { CartContextType, CartItem, CartProviderProps } from "../types";
 
 // Create context with initial value
 const CartContext = createContext<CartContextType>({
@@ -13,15 +13,13 @@ const CartContext = createContext<CartContextType>({
   clearCartAndAddItem: () => {},
   incrementItemQuantity: () => {},
   decrementItemQuantity: () => {},
-  cartItemCount: 0, // Initial value for cartItemCount
+  cartItemCount: 0,
 });
 
 // Custom hook to use CartContext
 export const useCart = () => useContext(CartContext);
 
-export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
-  children,
-}) => {
+export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
 
   // Calculate cartItemCount dynamically whenever cartItems change
@@ -75,11 +73,12 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
   const clearCart = () => {
     setCartItems([]);
   };
-
   const incrementItemQuantity = (id: number) => {
     setCartItems((prevItems) =>
       prevItems.map((item) =>
-        item.id === id ? { ...item, quantity: item.quantity + 1 } : item
+        item.id === id && item.stock > 0
+          ? { ...item, quantity: item.quantity + 1, stock: item.stock - 1 }
+          : item
       )
     );
   };
@@ -88,7 +87,9 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
     setCartItems((prevItems) =>
       prevItems
         .map((item) =>
-          item.id === id ? { ...item, quantity: item.quantity - 1 } : item
+          item.id === id && item.quantity > 0
+            ? { ...item, quantity: item.quantity - 1, stock: item.stock + 1 }
+            : item
         )
         .filter((item) => item.quantity > 0)
     );

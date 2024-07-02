@@ -26,13 +26,14 @@ const App: React.FC = () => {
           <Stack.Screen
             name="Menu"
             component={MenuScreen}
-            options={{
+            options={({ route }) => ({
               headerBackAccessibilityLabel: "Restaurant",
               headerBackTitleVisible: true,
               headerBackTitle: "Restaurant",
+              headerTitle: route.params.restaurantTitle,
               headerTitleAlign: "center",
               headerRight: () => <CartIcon />,
-            }}
+            })}
           />
           <Stack.Screen
             name="Cart"

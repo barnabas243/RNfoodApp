@@ -1,7 +1,7 @@
 import { ScrollView } from "react-native";
 import { HomeScreenProps, Restaurant } from "./types";
 import { Section, TableView } from "react-native-tableview-simple";
-import { restaurantsData } from "./data/Restaurant";
+import { restaurantsData } from "./data/RestaurantData";
 import HomescreenCell from "./components/HomescreenCell";
 
 const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
@@ -22,10 +22,11 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
               eta={restaurant.eta}
               imgUri={restaurant.imgUri}
               height={290}
-              action={() =>
+              onPress={() =>
                 navigation.navigate("Menu", {
                   menu: restaurant.menu,
                   restaurantId: index,
+                  restaurantTitle: restaurant.name,
                 })
               }
             />

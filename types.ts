@@ -1,5 +1,6 @@
 import { RouteProp } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
+import { ReactNode } from "react";
 import { ImageSourcePropType } from "react-native";
 
 export interface Restaurant {
@@ -14,6 +15,7 @@ export interface MenuItem {
   name: string;
   price: number;
   quantity: number;
+  stock: number;
 }
 
 export interface MenuSection {
@@ -38,19 +40,22 @@ export interface CartContextType {
   decrementItemQuantity: (id: number) => void;
   cartItemCount: number;
 }
+export interface CartProviderProps {
+  children: ReactNode;
+}
 export interface HomeScreenCellProps {
   key: number;
   title: string;
   tagline: string;
   eta: string;
   imgUri: ImageSourcePropType;
-  action: () => void;
+  onPress: () => void;
   height: number;
 }
 
 export type RootStackParamList = {
   Restaurants: undefined;
-  Menu: { menu: Menu; restaurantId: number };
+  Menu: { menu: Menu; restaurantId: number; restaurantTitle: string };
   Cart: undefined;
 };
 
