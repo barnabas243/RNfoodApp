@@ -1,4 +1,5 @@
-// CartProvider.tsx
+// CartProvider.tsx is a custom React context provider that manages the state of the cart items in the app.
+// It provides a CartContext that can be used to access and modify the cart items from any component in the app.
 
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { Alert } from "react-native";
@@ -73,11 +74,12 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
   const clearCart = () => {
     setCartItems([]);
   };
+
   const incrementItemQuantity = (id: number) => {
     setCartItems((prevItems) =>
       prevItems.map((item) =>
-        item.id === id && item.stock > 0
-          ? { ...item, quantity: item.quantity + 1, stock: item.stock - 1 }
+        item.id === id && item.quantity < item.stock // Ensure quantity doesn't exceed stock
+          ? { ...item, quantity: item.quantity + 1 }
           : item
       )
     );
@@ -87,8 +89,8 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
     setCartItems((prevItems) =>
       prevItems
         .map((item) =>
-          item.id === id && item.quantity > 0
-            ? { ...item, quantity: item.quantity - 1, stock: item.stock + 1 }
+          item.id === id && item.quantity > 0 // Ensure quantity doesn't go below 0
+            ? { ...item, quantity: item.quantity - 1 }
             : item
         )
         .filter((item) => item.quantity > 0)

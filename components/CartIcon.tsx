@@ -1,12 +1,13 @@
+// CartIcon component is used in the headerRight option of the Stack.Screen components in App.tsx. 
+// This component is responsible for displaying the shopping cart icon in the header of the HomeScreen and MenuScreen components.
+// When the user taps on the cart icon, the openCartModal function is called
+// which opens the cart modal by calling the present method on the BottomSheetModal instance.
+
 import React from "react";
 import { TouchableOpacity, View, Text, StyleSheet } from "react-native";
 import { Feather } from "@expo/vector-icons";
 import { useCart } from "../contexts/CartProvider";
-import { BottomSheetModal } from "@gorhom/bottom-sheet";
-
-interface CartIconProps {
-  sheetRef: React.RefObject<BottomSheetModal>;
-}
+import { CartIconProps } from "../types";
 
 const CartIcon: React.FC<CartIconProps> = ({ sheetRef }) => {
   const { cartItemCount } = useCart(); // Access cartItemsCount number from CartContext

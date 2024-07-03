@@ -6,7 +6,7 @@ RNfoodApp is a mobile application built using React Native that allows users to:
 
 - Browse and search for restaurants
 - View menu items
-- Add items to cart
+- Add or remove items from cart
 - View Cart
 
 Submission for **graded assignment 4.301 (Food ordering app)**
@@ -25,15 +25,15 @@ Click on the expo snack link in the expo.txt or [click here](https://snack.expo.
 
 ### Home Screen
 
-<img src="home_screen.jpg" alt="Home Screen" width="400" />
+<img src="./screenshots/home_screen.jpg" alt="Home Screen" width="400" />
   
 ### Menu Screen
 
-<img src="menu_screen.jpg" alt="Menu Screen" width="400" />
+<img src="./screenshots/menu_screen.jpg" alt="Menu Screen" width="400" />
   
 ### Cart BottomsheetModal
 
-<img src="cart_bottomsheet.jpg" alt="Cart Screen" width="400" />
+<img src="./screenshots/cart_bottomsheet.jpg" alt="Cart Bottomsheet" width="400" />
 
 ## Prerequisites
 
@@ -46,29 +46,29 @@ Before running the app, make sure you have Node.js and Expo CLI installed on you
 
 Clone the repository and navigate to the project directory::
 
-   ```bash
+```bash
    git clone https://github.com/barnabas243/RNfoodApp.git
    cd RNfoodApp
-   ```
+```
 
 Install dependencies:
 
-   ```bash
+```bash
    npm install
-   ```
+```
 
 ## Running the App
 
 To start the app locally, use the following command:
 
 ```bash
-npm start
+   npm start
 ```
 
 or
 
 ```bash
-npx expo start
+   npx expo start
 ```
 
 This will open the Expo development server and provide you with options to run the app on an Android/iOS simulator or scan the QR code with the Expo Go app on your device.

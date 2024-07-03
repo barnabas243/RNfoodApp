@@ -1,3 +1,23 @@
+// Data structure of the restaurantsData
+// { 
+//   name: {string}, 
+//   tagline: {string}, 
+//   eta: {string}, 
+//   imgUri: {string}, 
+//   menu: {
+//     sections: {
+//       title: {string}, 
+//       items: {
+//         id: {number}, 
+//         name: {string}, 
+//         price: {number}, 
+//         quantity: {number}, 
+//         stock: {number}
+//       }
+//     }
+//   }
+// }
+
 import { Restaurant } from "../types";
 
 export const restaurantsData: Restaurant[] = [

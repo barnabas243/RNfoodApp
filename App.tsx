@@ -1,3 +1,5 @@
+// App.tsx
+
 import React, { useMemo, useRef } from "react";
 import { StyleSheet } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
@@ -5,9 +7,9 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { RootStackParamList } from "./types";
 import { CartProvider } from "./contexts/CartProvider";
 import CartIcon from "./components/CartIcon";
-import MenuScreen from "./MenuScreen";
+import MenuScreen from "./screens/MenuScreen";
 // import CartScreen from "./CartScreen_unused";
-import HomeScreen from "./HomeScreen";
+import HomeScreen from "./screens/HomeScreen";
 import {
   BottomSheetBackdrop,
   BottomSheetModal,

@@ -1,3 +1,6 @@
+// HomescreenCell.tsx is a component that displays a cell with an image,
+// title, tagline, and estimated time of arrival (ETA) for a restaurant on the home screen.
+
 import React from "react";
 import { View, Text, Image, StyleSheet } from "react-native";
 import { Cell } from "react-native-tableview-simple";

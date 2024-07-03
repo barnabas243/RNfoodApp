@@ -1,3 +1,5 @@
+// MenuScreen is a React functional component that displays a list of menu items grouped by sections.
+
 import React from "react";
 import {
   View,
@@ -7,8 +9,8 @@ import {
   StyleSheet,
 } from "react-native";
 import { Feather } from "@expo/vector-icons";
-import { useCart } from "./contexts/CartProvider";
-import { MenuItem, MenuScreenProps } from "./types";
+import { useCart } from "../contexts/CartProvider";
+import { MenuItem, MenuScreenProps } from "../types";
 
 const MenuScreen: React.FC<MenuScreenProps> = ({ route }) => {
   const { menu, restaurantId } = route.params; // Get menu information from route params
@@ -20,9 +22,11 @@ const MenuScreen: React.FC<MenuScreenProps> = ({ route }) => {
       restaurantId: restaurantId, // Assuming each menu item has a restaurantId
     });
   };
+
   const removeMenuItemFromCart = (menuItemId: number) => {
     decrementItemQuantity(menuItemId);
   };
+
   // Data structure for SectionList
   const sections = menu.sections.map((section) => ({
     title: section.title,
@@ -42,6 +46,7 @@ const MenuScreen: React.FC<MenuScreenProps> = ({ route }) => {
     const quantity = cartItem ? cartItem.quantity : 0;
     const stock = item.stock - quantity;
     const isOutOfStock = stock === 0;
+
     return (
       <View
         style={[

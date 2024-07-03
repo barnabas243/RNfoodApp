@@ -7,9 +7,9 @@ import {
   Alert,
 } from "react-native";
 import { Feather } from "@expo/vector-icons";
-import { useCart } from "./contexts/CartProvider";
-import { CartItem } from "./types";
-import { restaurantsData } from "./data/RestaurantData";
+import { useCart } from "../contexts/CartProvider";
+import { CartItem } from "../types";
+import { restaurantsData } from "../data/RestaurantData";
 import SwipeableFlatList from "react-native-swipeable-list";
 
 const CartScreen: React.FC = () => {

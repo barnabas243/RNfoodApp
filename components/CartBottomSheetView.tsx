@@ -1,3 +1,7 @@
+// CartBottomSheetView.tsx is a component that displays the cart items in a swipeable list 
+// The ability to remove items, increment and decrement item quantities, and clear the cart.
+// It uses the CartProvider context to access and modify the cart items state.
+
 import React from "react";
 import { View, Text, TouchableOpacity, StyleSheet, Alert } from "react-native";
 import { Feather } from "@expo/vector-icons";
@@ -57,7 +61,7 @@ const CartBottomSheetView: React.FC = () => {
     }
   }
 
-  const QuickActions = (index: number, qaItemId: number) => {
+  const QuickActions = (qaItemId: number) => {
     return (
       <View style={styles.qaContainer}>
         <View
@@ -84,7 +88,9 @@ const CartBottomSheetView: React.FC = () => {
       <View style={styles.itemDetailsContainer}>
         <Text style={styles.itemName}>{item.name}</Text>
         <Text style={styles.itemPrice}>${item.price.toFixed(2)}</Text>
-        <Text style={styles.itemStock}>Stock: {item.stock - 1}</Text>
+        <Text style={styles.itemStock}>
+          Stock: {item.stock - item.quantity}
+        </Text>
       </View>
       <Text style={styles.itemTotalPrice}>
         ${(item.price * item.quantity).toFixed(2)}
@@ -108,7 +114,7 @@ const CartBottomSheetView: React.FC = () => {
         keyExtractor={(item) => item.id.toString()}
         renderItem={renderItem}
         maxSwipeDistance={100}
-        renderQuickActions={({ index, item }) => QuickActions(index, item.id)}
+        renderQuickActions={({ item }) => QuickActions(item.id)}
         contentContainerStyle={styles.contentContainerStyle}
         shouldBounceOnMount={true}
         ListHeaderComponent={() => (
