@@ -1,21 +1,22 @@
 import React from "react";
 import { TouchableOpacity, View, Text, StyleSheet } from "react-native";
 import { Feather } from "@expo/vector-icons";
-import { NavigationProp, useNavigation } from "@react-navigation/native";
-import { RootStackParamList } from "../types";
 import { useCart } from "../contexts/CartProvider";
+import { BottomSheetModal } from "@gorhom/bottom-sheet";
 
-const CartIcon: React.FC = () => {
-  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+interface CartIconProps {
+  sheetRef: React.RefObject<BottomSheetModal>;
+}
 
+const CartIcon: React.FC<CartIconProps> = ({ sheetRef }) => {
   const { cartItemCount } = useCart(); // Access cartItemsCount number from CartContext
 
-  const handleCartPress = () => {
-    navigation.navigate("Cart");
+  const openCartModal = () => {
+    sheetRef.current?.present();
   };
 
   return (
-    <TouchableOpacity onPress={handleCartPress} style={styles.container}>
+    <TouchableOpacity onPress={openCartModal} style={styles.container}>
       <Feather name="shopping-cart" size={24} color="black" />
       {cartItemCount > 0 && (
         <View style={styles.badge}>

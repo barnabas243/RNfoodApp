@@ -1,19 +1,13 @@
 import React from "react";
-import {
-  View,
-  Text,
-  FlatList,
-  TouchableOpacity,
-  StyleSheet,
-  Alert,
-} from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet, Alert } from "react-native";
 import { Feather } from "@expo/vector-icons";
-import { useCart } from "./contexts/CartProvider";
-import { CartItem } from "./types";
-import { restaurantsData } from "./data/RestaurantData";
+import { useCart } from "../contexts/CartProvider";
+import { CartItem } from "../types";
+import { restaurantsData } from "../data/RestaurantData";
 import SwipeableFlatList from "react-native-swipeable-list";
+import { BottomSheetView } from "@gorhom/bottom-sheet";
 
-const CartScreen: React.FC = () => {
+const CartBottomSheetView: React.FC = () => {
   const {
     cartItems,
     removeFromCart,
@@ -108,7 +102,7 @@ const CartScreen: React.FC = () => {
   );
 
   return (
-    <View style={styles.container}>
+    <BottomSheetView style={styles.container}>
       <SwipeableFlatList
         data={cartItems}
         keyExtractor={(item) => item.id.toString()}
@@ -136,7 +130,7 @@ const CartScreen: React.FC = () => {
           </View>
         )}
       />
-    </View>
+    </BottomSheetView>
   );
 };
 
@@ -222,4 +216,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default CartScreen;
+export default CartBottomSheetView;

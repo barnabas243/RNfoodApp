@@ -46,7 +46,7 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
             {
               text: "Clear Cart",
               onPress: () => clearCartAndAddItem(item),
-              style: "destructive", // Style for destructive action (e.g., red color)
+              style: "destructive",
             },
             {
               text: "Cancel",

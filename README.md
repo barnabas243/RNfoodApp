@@ -24,13 +24,16 @@ Click on the expo snack link in the expo.txt or [click here](https://snack.expo.
 ## Preview
 
 ### Home Screen
+
 <img src="home_screen.jpg" alt="Home Screen" width="400" />
   
 ### Menu Screen
+
 <img src="menu_screen.jpg" alt="Menu Screen" width="400" />
   
-### Cart Screen
-<img src="cart_screen.jpg" alt="Cart Screen" width="400" />
+### Cart BottomsheetModal
+
+<img src="cart_bottomsheet.jpg" alt="Cart Screen" width="400" />
 
 ## Prerequisites
 
@@ -41,14 +44,14 @@ Before running the app, make sure you have Node.js and Expo CLI installed on you
 
 ## Installation
 
-1. Clone the repository and navigate to the project directory::
+Clone the repository and navigate to the project directory::
 
    ```bash
    git clone https://github.com/barnabas243/RNfoodApp.git
    cd RNfoodApp
    ```
 
-2. Install dependencies:
+Install dependencies:
 
    ```bash
    npm install
