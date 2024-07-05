@@ -1,17 +1,15 @@
 # Project Name: RNfoodApp
+Submission for **graded assignment 4.301 (Food ordering app)**
 
 ## Description:
 
 RNfoodApp is a mobile application built using React Native that allows users to:
-
 - Browse and search for restaurants
 - View menu items
 - Add or remove items from cart
 - View Cart
 
-Submission for **graded assignment 4.301 (Food ordering app)**
-
-Click on the expo snack link in the expo.txt or [click here](https://snack.expo.dev/@barnabas243/github.com-barnabas243-rnfoodapp).
+please [click here](https://snack.expo.dev/@barnabas243/github.com-barnabas243-rnfoodapp) or view the expo.txt file for the link to the expo snack demo.
 
 ## Table of Contents
 
