@@ -1,17 +1,18 @@
-// Data structure of the restaurantsData
-// { 
-//   name: {string}, 
-//   tagline: {string}, 
-//   eta: {string}, 
-//   imgUri: {string}, 
+// RestaurantData.ts is a file that contains an array of restaurant objects.
+// Each restaurant object contains the following properties:
+// {
+//   name: {string},
+//   tagline: {string},
+//   eta: {string},
+//   imgUri: {string},
 //   menu: {
 //     sections: {
-//       title: {string}, 
+//       title: {string},
 //       items: {
-//         id: {number}, 
-//         name: {string}, 
-//         price: {number}, 
-//         quantity: {number}, 
+//         id: {number},
+//         name: {string},
+//         price: {number},
+//         quantity: {number},
 //         stock: {number}
 //       }
 //     }

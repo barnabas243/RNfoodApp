@@ -1,4 +1,5 @@
-// App.tsx
+// Author: Barnabas Tan
+// Code was written by Author
 
 import React, { useMemo, useRef } from "react";
 import { StyleSheet } from "react-native";
@@ -51,14 +52,6 @@ const App: React.FC = () => {
                   headerRight: () => <CartIcon sheetRef={sheetRef} />,
                 })}
               />
-              {/* <Stack.Screen
-                name="Cart"
-                component={CartScreen}
-                options={{
-                  headerTitleAlign: "center",
-                  headerRight: () => <CartIcon sheetRef={sheetRef} />,
-                }}
-              /> */}
             </Stack.Navigator>
             <BottomSheetModal
               backdropComponent={(
