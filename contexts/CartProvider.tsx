@@ -1,9 +1,9 @@
 // CartProvider.tsx is a custom React context provider that manages the state of the cart items in the app.
 // It provides a CartContext that can be used to access and modify the cart items from any component in the app.
 
-import React, { createContext, useContext, useState, useEffect } from "react";
-import { Alert } from "react-native";
-import { CartContextType, CartItem, CartProviderProps } from "../types";
+import React, {createContext, useContext, useState} from 'react';
+import {Alert} from 'react-native';
+import {CartContextType, CartItem, CartProviderProps} from '../types';
 
 // Create context with initial value
 const CartContext = createContext<CartContextType>({
@@ -20,42 +20,36 @@ const CartContext = createContext<CartContextType>({
 // Custom hook to use CartContext
 export const useCart = () => useContext(CartContext);
 
-export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
+export const CartProvider = ({children}: CartProviderProps) => {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
 
   // Calculate cartItemCount dynamically whenever cartItems change
-  const cartItemCount = cartItems.reduce(
-    (total, item) => total + item.quantity,
-    0
-  );
+  const cartItemCount = cartItems.reduce((total, item) => total + item.quantity, 0);
 
   const addToCart = (item: CartItem) => {
-    const existingItem = cartItems.find((cartItem) => cartItem.id === item.id);
+    const existingItem = cartItems.find(cartItem => cartItem.id === item.id);
     if (existingItem) {
       incrementItemQuantity(item.id);
     } else {
-      if (
-        cartItems.length === 0 ||
-        cartItems[0].restaurantId === item.restaurantId
-      ) {
-        setCartItems([...cartItems, { ...item, quantity: 1 }]);
+      if (cartItems.length === 0 || cartItems[0].restaurantId === item.restaurantId) {
+        setCartItems([...cartItems, {...item, quantity: 1}]);
       } else {
         Alert.alert(
-          "Error",
-          "Cannot add items from different restaurants to cart. Would you like to clear the cart and add this item?",
+          'Error',
+          'Cannot add items from different restaurants to cart. Would you like to clear the cart and add this item?',
           [
             {
-              text: "Clear Cart",
+              text: 'Clear Cart',
               onPress: () => clearCartAndAddItem(item),
-              style: "destructive",
+              style: 'destructive',
             },
             {
-              text: "Cancel",
-              onPress: () => console.log("Cancel Pressed"),
-              style: "cancel",
+              text: 'Cancel',
+              onPress: () => console.log('Cancel Pressed'),
+              style: 'cancel',
             },
           ],
-          { cancelable: false }
+          {cancelable: false},
         );
       }
     }
@@ -63,11 +57,11 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
 
   const clearCartAndAddItem = (item: CartItem) => {
     clearCart();
-    setCartItems([{ ...item, quantity: 1 }]);
+    setCartItems([{...item, quantity: 1}]);
   };
 
   const removeFromCart = (id: number) => {
-    const updatedCartItems = cartItems.filter((item) => item.id !== id);
+    const updatedCartItems = cartItems.filter(item => item.id !== id);
     setCartItems(updatedCartItems);
   };
 
@@ -76,24 +70,24 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
   };
 
   const incrementItemQuantity = (id: number) => {
-    setCartItems((prevItems) =>
-      prevItems.map((item) =>
+    setCartItems(prevItems =>
+      prevItems.map(item =>
         item.id === id && item.quantity < item.stock // Ensure quantity doesn't exceed stock
-          ? { ...item, quantity: item.quantity + 1 }
-          : item
-      )
+          ? {...item, quantity: item.quantity + 1}
+          : item,
+      ),
     );
   };
 
   const decrementItemQuantity = (id: number) => {
-    setCartItems((prevItems) =>
+    setCartItems(prevItems =>
       prevItems
-        .map((item) =>
+        .map(item =>
           item.id === id && item.quantity > 0 // Ensure quantity doesn't go below 0
-            ? { ...item, quantity: item.quantity - 1 }
-            : item
+            ? {...item, quantity: item.quantity - 1}
+            : item,
         )
-        .filter((item) => item.quantity > 0)
+        .filter(item => item.quantity > 0),
     );
   };
 
@@ -108,8 +102,7 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
         incrementItemQuantity,
         decrementItemQuantity,
         cartItemCount,
-      }}
-    >
+      }}>
       {children}
     </CartContext.Provider>
   );

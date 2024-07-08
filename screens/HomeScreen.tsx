@@ -1,12 +1,12 @@
 // HomeScreen.tsx is a component that displays a list of restaurants on the home screen.
 
-import { ScrollView } from "react-native";
-import { HomeScreenProps, Restaurant } from "../types";
-import { Section, TableView } from "react-native-tableview-simple";
-import { restaurantsData } from "../data/RestaurantData";
-import HomescreenCell from "../components/HomescreenCell";
+import {ScrollView} from 'react-native';
+import {HomeScreenProps, Restaurant} from '../types';
+import {Section, TableView} from 'react-native-tableview-simple';
+import {restaurantsData} from '../data/RestaurantData';
+import HomescreenCell from '../components/HomescreenCell';
 
-const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
+const HomeScreen = ({navigation}: HomeScreenProps) => {
   return (
     <ScrollView>
       <TableView>
@@ -14,8 +14,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
           hideSeparator={true}
           separatorTintColor="#ccc"
           sectionPaddingTop={0}
-          sectionPaddingBottom={0}
-        >
+          sectionPaddingBottom={0}>
           {restaurantsData.map((restaurant: Restaurant, index: number) => (
             <HomescreenCell
               key={index}
@@ -25,7 +24,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
               imgUri={restaurant.imgUri}
               height={290}
               onPress={() =>
-                navigation.navigate("Menu", {
+                navigation.navigate('Menu', {
                   menu: restaurant.menu,
                   restaurantId: index,
                   restaurantTitle: restaurant.name,

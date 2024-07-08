@@ -1,25 +1,14 @@
-import React from "react";
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  StyleSheet,
-  Alert,
-} from "react-native";
-import { Feather } from "@expo/vector-icons";
-import { useCart } from "../contexts/CartProvider";
-import { CartItem } from "../types";
-import { restaurantsData } from "../data/RestaurantData";
-import SwipeableFlatList from "react-native-swipeable-list";
+import React from 'react';
+import {View, Text, TouchableOpacity, StyleSheet, Alert} from 'react-native';
+import {Feather} from '@expo/vector-icons';
+import {useCart} from '../contexts/CartProvider';
+import {CartItem} from '../types';
+import {restaurantsData} from '../data/RestaurantData';
+import SwipeableFlatList from 'react-native-swipeable-list';
 
-const CartScreen: React.FC = () => {
-  const {
-    cartItems,
-    removeFromCart,
-    incrementItemQuantity,
-    decrementItemQuantity,
-    clearCart,
-  } = useCart();
+const CartScreen = () => {
+  const {cartItems, removeFromCart, incrementItemQuantity, decrementItemQuantity, clearCart} =
+    useCart();
 
   const handleRemoveItem = (id: number) => {
     removeFromCart(id);
@@ -35,23 +24,23 @@ const CartScreen: React.FC = () => {
 
   const handleClearCart = () => {
     Alert.alert(
-      "Clear Cart",
-      "Are you sure you want to clear the cart?",
+      'Clear Cart',
+      'Are you sure you want to clear the cart?',
       [
         {
-          text: "Cancel",
-          style: "cancel",
+          text: 'Cancel',
+          style: 'cancel',
         },
         {
-          text: "Clear",
+          text: 'Clear',
           onPress: () => clearCart(),
-          style: "destructive",
+          style: 'destructive',
         },
       ],
-      { cancelable: true }
+      {cancelable: true},
     );
   };
-  let restaurantTitle = "Your Cart is Empty"; // Default title if cart is empty
+  let restaurantTitle = 'Your Cart is Empty'; // Default title if cart is empty
 
   if (cartItems && cartItems.length > 0) {
     const restaurantId = cartItems[0].restaurantId;
@@ -68,32 +57,28 @@ const CartScreen: React.FC = () => {
         <View
           style={{
             width: 100,
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}>
           <TouchableOpacity
-            style={{ flexDirection: "row", alignItems: "center" }}
-            onPress={() => handleRemoveItem(qaItemId)}
-          >
+            style={{flexDirection: 'row', alignItems: 'center'}}
+            onPress={() => handleRemoveItem(qaItemId)}>
             <Feather name="trash" size={20} color="red" />
-            <Text style={{ color: "red", marginLeft: 5 }}>Delete</Text>
+            <Text style={{color: 'red', marginLeft: 5}}>Delete</Text>
           </TouchableOpacity>
         </View>
       </View>
     );
   };
 
-  const renderItem = ({ item }: { item: CartItem }) => (
-    <View style={[styles.itemContainer, { backgroundColor: "#fff" }]}>
+  const renderItem = ({item}: {item: CartItem}) => (
+    <View style={[styles.itemContainer, {backgroundColor: '#fff'}]}>
       <View style={styles.itemDetailsContainer}>
         <Text style={styles.itemName}>{item.name}</Text>
         <Text style={styles.itemPrice}>${item.price.toFixed(2)}</Text>
         <Text style={styles.itemStock}>Stock: {item.stock - 1}</Text>
       </View>
-      <Text style={styles.itemTotalPrice}>
-        ${(item.price * item.quantity).toFixed(2)}
-      </Text>
+      <Text style={styles.itemTotalPrice}>${(item.price * item.quantity).toFixed(2)}</Text>
       <View style={styles.quantityContainer}>
         <TouchableOpacity onPress={() => handleDecrementItem(item.id)}>
           <Feather name="minus" size={20} color="black" />
@@ -110,10 +95,10 @@ const CartScreen: React.FC = () => {
     <View style={styles.container}>
       <SwipeableFlatList
         data={cartItems}
-        keyExtractor={(item) => item.id.toString()}
+        keyExtractor={item => item.id.toString()}
         renderItem={renderItem}
         maxSwipeDistance={100}
-        renderQuickActions={({ index, item }) => QuickActions(index, item.id)}
+        renderQuickActions={({index, item}) => QuickActions(index, item.id)}
         contentContainerStyle={styles.contentContainerStyle}
         shouldBounceOnMount={true}
         ListHeaderComponent={() => (
@@ -128,9 +113,7 @@ const CartScreen: React.FC = () => {
           <View style={styles.footerContainer}>
             <Text style={styles.totalText}>
               Total: $
-              {cartItems
-                .reduce((sum, item) => sum + item.price * item.quantity, 0)
-                .toFixed(2)}
+              {cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0).toFixed(2)}
             </Text>
           </View>
         )}
@@ -144,30 +127,30 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   headerContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     marginBottom: 16,
     paddingVertical: 8,
     paddingHorizontal: 12,
   },
   headerText: {
     fontSize: 24,
-    fontWeight: "bold",
+    fontWeight: 'bold',
   },
   clearCartText: {
     fontSize: 16,
-    color: "red",
+    color: 'red',
   },
   itemContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     paddingHorizontal: 12,
     paddingVertical: 8,
     borderBottomWidth: 1,
-    borderBottomColor: "#ccc",
-    color: "black",
+    borderBottomColor: '#ccc',
+    color: 'black',
   },
   itemDetailsContainer: {
     flex: 2,
@@ -177,11 +160,11 @@ const styles = StyleSheet.create({
   },
   itemStock: {
     fontSize: 14,
-    color: "#888",
+    color: '#888',
   },
   quantityContainer: {
-    flexDirection: "row",
-    alignItems: "center",
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   quantityText: {
     fontSize: 16,
@@ -193,7 +176,7 @@ const styles = StyleSheet.create({
   itemTotalPrice: {
     fontSize: 16,
     flex: 1,
-    textAlign: "center",
+    textAlign: 'center',
   },
   footerContainer: {
     paddingVertical: 8,
@@ -201,20 +184,20 @@ const styles = StyleSheet.create({
   },
   totalText: {
     fontSize: 20,
-    fontWeight: "bold",
-    textAlign: "right",
+    fontWeight: 'bold',
+    textAlign: 'right',
   },
   qaContainer: {
     flex: 1,
-    flexDirection: "row",
-    justifyContent: "flex-end",
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
     borderWidth: 1,
-    borderColor: "#ffbcbc",
-    backgroundColor: "#ffcccc",
+    borderColor: '#ffbcbc',
+    backgroundColor: '#ffcccc',
   },
   button: {
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   contentContainerStyle: {
     flexGrow: 1,
