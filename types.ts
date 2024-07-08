@@ -1,29 +1,26 @@
 // types.ts is a file that contains all the types used in the app.
 
-import { BottomSheetModal } from "@gorhom/bottom-sheet";
-import { RouteProp } from "@react-navigation/native";
-import { StackNavigationProp } from "@react-navigation/stack";
-import { ReactNode } from "react";
-import { ImageSourcePropType } from "react-native";
+import {BottomSheetModal} from '@gorhom/bottom-sheet';
+import {RouteProp} from '@react-navigation/native';
+import {StackNavigationProp} from '@react-navigation/stack';
+import {ReactNode} from 'react';
+import {ImageSourcePropType} from 'react-native';
 
 // NAVIGATION ///////////////////////////////////////////////////////////////////////////
 export type RootStackParamList = {
   Restaurants: undefined;
-  Menu: { menu: Menu; restaurantId: number; restaurantTitle: string };
+  Menu: {menu: Menu; restaurantId: number; restaurantTitle: string};
   Cart: undefined;
 };
-export type HomeScreenNavigationProp = StackNavigationProp<
-  RootStackParamList,
-  "Restaurants"
->;
+export type HomeScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Restaurants'>;
 export type HomeScreenProps = {
   navigation: HomeScreenNavigationProp;
 };
-export type MenuScreenRouteProp = RouteProp<RootStackParamList, "Menu">;
+export type MenuScreenRouteProp = RouteProp<RootStackParamList, 'Menu'>;
 export type MenuScreenProps = {
   route: MenuScreenRouteProp;
 };
-export type CartScreenRouteProp = RouteProp<RootStackParamList, "Cart">;
+export type CartScreenRouteProp = RouteProp<RootStackParamList, 'Cart'>;
 
 // RESTAURANT and MENU //////////////////////////////////////////////////////////////////
 export type HomeScreenCellProps = {
